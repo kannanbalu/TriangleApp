@@ -16,7 +16,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridLayout;
 import android.widget.TextView;
 
 /**
@@ -37,6 +36,7 @@ public class MainActivity extends Activity {
 	private char DELIM = COMMA;
 			
 	String errMsg = "";
+	String triangleType = "";
 	View view = null;
 	Canvas canvas = null;
 	
@@ -58,7 +58,7 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
            
             	if (parseInput(input_value.getText().toString())) {
-            		tView.setText(input_value.getText());
+            		tView.setText(triangleType);
             	} else {
             		tView.setText(errMsg);
             	}
@@ -86,7 +86,7 @@ public class MainActivity extends Activity {
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.WHITE);
         c.drawPaint(paint);
-        // Use Color.parseColor to define HTML colors
+        
         paint.setColor(Color.parseColor("#CD5C5C"));
         c.drawCircle(x / 2, y / 2, radius, paint);
     }
@@ -134,7 +134,6 @@ public class MainActivity extends Activity {
 				}
 			});
         	dialog.create().show();
-        	//System.exit(0);
         	return false;
         }
 
@@ -172,6 +171,10 @@ public class MainActivity extends Activity {
         String side_1 = str.substring(0, index).trim();
         String side_2 = str.substring(index+1, str.indexOf(DELIM, index+1)).trim();
         String side_3 = str.substring(str.indexOf(DELIM, index+1)+1, str.length()).trim();
+        if (side_3.isEmpty()) {
+            errMsg = "length of side 3 cannot be empty";
+            return false;
+        }
         errMsg = side_1 + "/" + side_2 + "/" + side_3;
         int side1 = Integer.valueOf(side_1);
         if (side1 < 1 || side1 > 100) {
@@ -192,7 +195,7 @@ public class MainActivity extends Activity {
             return false;
         }
         determineTriangleType(side1, side2, side3);
-        return false ;
+        return true ;
     }
     
    /**
@@ -232,7 +235,7 @@ public class MainActivity extends Activity {
 	   } else {
 	       type = SCALENE_TRIANGLE;
 	   }
-	   errMsg = type;
+	   triangleType = type;
 	   return type;
    }
    

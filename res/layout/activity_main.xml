@@ -10,7 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:rowCount="4"
     android:id="@+id/gridLayout"
-    tools:context="com.example.test1.MainActivity" >
+    tools:context="com.example.triangle.MainActivity" >
 
     <TextView
         android:id="@+id/textView1"
